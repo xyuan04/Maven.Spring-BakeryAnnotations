@@ -2,10 +2,17 @@ package com.zipcodewilmington.bakery.services;
 
 import com.zipcodewilmington.bakery.models.Baker;
 import com.zipcodewilmington.bakery.repositories.BakerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 public class BakerService {
     private BakerRepository repository;
 
+    @Autowired
     public BakerService(BakerRepository repository) {
         this.repository = repository;
     }
@@ -16,6 +23,13 @@ public class BakerService {
 
     public Baker show(Long id) {
         return repository.findById(id).get();
+    }
+
+    public List<Baker> showALl() {
+        List<Baker> bakerList = new ArrayList<>();
+        repository.findAll().forEach(bakerList::add);
+
+        return bakerList;
     }
 
     public Baker create(Baker baker) {
